@@ -39,7 +39,7 @@ jobs:
           -advertise-url http://localhost:10080 &
 
       - name: Install test tools
-        run: make test-tools
+        run: make SUDO="sudo" test-tools
 
       - name: Run test
         run: make test
