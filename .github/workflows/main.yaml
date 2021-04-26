@@ -41,6 +41,9 @@ jobs:
       - name: Install test tools
         run: make SUDO="sudo" test-tools
 
+      - name: which
+        run: which etcd 
+
       - name: Run test
         run: make test
 
