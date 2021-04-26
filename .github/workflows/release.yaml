@@ -23,9 +23,8 @@ jobs:
       - name: Build Binaries
         run: |
           make build
-          mkdir /tmp/workspace
-          cp LICENSE /tmp/workspace
-          cp ./sabakan ./sabactl ./sabakan-cryptsetup /tmp/workspace
+          cp LICENSE ./docker
+          cp ./sabakan ./sabactl ./sabakan-cryptsetup ./docker
 
       - name: Build image
         run: docker build -t quay.io/binoue/sabakan:latest ./docker
@@ -57,4 +56,4 @@ jobs:
           if ${{ env.prerelease }}; then
             PRERELEASE="-prerelease"
           fi
-          echo "ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${OWNER} -r ${REPOSITORY} -n v${{ env.tag }} ${PRERELEASE} -b "See [CHANGELOG.md](./CHANGELOG.md) for details." v${{ env.tag }}"
+          echo 'ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${OWNER} -r ${REPOSITORY} -n v${{ env.tag }} ${PRERELEASE} -b "See [CHANGELOG.md](./CHANGELOG.md) for details." v${{ env.tag }}'
