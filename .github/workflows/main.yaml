@@ -38,6 +38,9 @@ jobs:
           -etcd-endpoints http://localhost:2379 \
           -advertise-url http://localhost:10080 &
 
+      - name: Install test tools
+        run: make test-tools
+
       - name: Run test
         run: make test
 
