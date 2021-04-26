@@ -29,9 +29,6 @@ jobs:
       - name: Build binaries
         run: make build
 
-      # - name: Run etcd container
-      #   run: docker run -d --network host quay.io/cybozu/etcd:3.3
-
       - name: Start sanakan  
         run: |
           ./sabakan -dhcp-bind 0.0.0.0:10067 \
