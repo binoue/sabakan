@@ -31,21 +31,21 @@ jobs:
           cp ./sabakan ./sabactl ./sabakan-cryptsetup /tmp/workspace
 
       - name: Build image
-        run: docker build -t quay.io/cybozu/sabakan:latest ./docker
+        run: docker build -t quay.io/binoue/sabakan:latest ./docker
 
       - name: Push docker image to Quay.io
         run: |
           echo ${{ secrets.QUAY_PASSWORD }} | docker login -u ${{ secrets.QUAY_USER }} --password-stdin quay.io
           echo "pushing Sabakan image ..."
-          docker tag quay.io/cybozu/sabakan:latest quay.io/cybozu/sabakan:${{ env.tag }}
-          docker push quay.io/cybozu/sabakan:${{ env.tag }}
+          docker tag quay.io/binoue/sabakan:latest quay.io/binoue/sabakan:${{ env.tag }}
+          docker push quay.io/binoue/sabakan:${{ env.tag }}
           if ${{ env.prerelease }} ; then
               echo ===== Skip pushing branch tags for pre-release ${{ env.tag }} =====
               exit 0
           fi
           BRANCH=$(echo ${{ env.tag }} | cut -d "." -f 1-2)
-          docker tag quay.io/cybozu/sabakan:latest quay.io/cybozu/sabakan:$BRANCH
-          docker push quay.io/cybozu/sabakan:$BRANCH
+          docker tag quay.io/binoue/sabakan:latest quay.io/binoue/sabakan:$BRANCH
+          docker push quay.io/binoue/sabakan:$BRANCH
 
   release-github:
     name: Release GitHub
