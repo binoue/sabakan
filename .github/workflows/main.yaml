@@ -4,15 +4,19 @@ on:
   push:
     branches:
       - 'main'
-defaults:
-  run:
-    working-directory: v2
 env:
   go-version: 1.16
+  filename: 'main.yaml'
 jobs:
   build:
     name: Build
     runs-on: ubuntu-20.04
+    services:
+      etcd:
+        image: quay.io/cybozu/etcd:3.3
+        ports:
+        - 2379:2379
+        - 2380:2379
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,14 +26,11 @@ jobs:
         with:
           go-version: ${{ env.go-version }}
 
-      - name: Test
-        run: ls
-
       - name: Build binaries
         run: make build
 
-      - name: Run etcd container
-        run: docker run -d --network host quay.io/cybozu/etcd:v3.3
+      # - name: Run etcd container
+      #   run: docker run -d --network host quay.io/cybozu/etcd:3.3
 
       - name: Start sanakan  
         run: |
