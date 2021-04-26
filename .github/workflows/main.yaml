@@ -111,7 +111,9 @@ jobs:
         run: ./bin/watch_service sabakan > sabakan-service.log &
 
       - name: Run mtest
-        run: ./bin/run-mtest.sh
+        run: |
+          GITHUB_SHA=$(cat ${GITHUB_EVENT_PATH} | jq -r '.pull_request.head.sha')
+          ./bin/run-mtest.sh
 
       - name: Show sabakan logs
         if: ${{ always() }}
