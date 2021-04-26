@@ -1,5 +1,7 @@
 # Makefile for sabakan
 
+# configuration variables
+ETCD_VERSION = 3.3.25
 GO_FILES=$(shell find -name '*.go' -not -name '*_test.go')
 BUILT_TARGET=sabakan sabactl sabakan-cryptsetup
 
@@ -60,9 +62,9 @@ nilerr:
 .PHONY: etcd
 etcd:
 	if ! which etcd >/dev/null; then \
-		curl -L https://github.com/etcd-io/etcd/releases/download/v${ETCD_VER}/etcd-v${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-v${ETCD_VER}-linux-amd64.tar.gz; \
+		curl -L https://github.com/etcd-io/etcd/releases/download/v${ETCD_VERSION}/etcd-v${ETCD_VERSION}-linux-amd64.tar.gz -o /tmp/etcd-v${ETCD_VERSION}-linux-amd64.tar.gz; \
 		mkdir /tmp/etcd; \
-		tar xzvf /tmp/etcd-v${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd --strip-components=1; \
+		tar xzvf /tmp/etcd-v${ETCD_VERSION}-linux-amd64.tar.gz -C /tmp/etcd --strip-components=1; \
 		$(SUDO) mv /tmp/etcd/etcd /usr/local/bin/; \
-		rm -rf /tmp/etcd-v${ETCD_VER}-linux-amd64.tar.gz /tmp/etcd; \
+		rm -rf /tmp/etcd-v${ETCD_VERSION}-linux-amd64.tar.gz /tmp/etcd; \
 	fi
