@@ -52,7 +52,6 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: quay.io/cybozu/golang:1.16-focal
-    needs: release-image
     steps:
       - name: Create GitHub release
         run: |
